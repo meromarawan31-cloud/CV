@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Fayez - Interactive CV</title>
+    <style>
+        :root {
+            --primary-color: #8b645a;
+            --sidebar-bg: #1a1a1a;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f9f9f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0e0e0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .cv-wrapper {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--text-light);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            border-radius: 8px;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* Left Column (Main Content) */
+        .main-content {
+            width: 65%;
+            padding: 40px;
+            background-color: var(--text-light);
+        }
+
+        .header-box {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 25px;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 35px;
+            transition: transform 0.3s ease;
+        }
+
+        .header-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(139, 100, 90, 0.4);
+        }
+
+        h1 {
+            font-size: 36px;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        h2.subtitle {
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .section-header {
+            font-size: 24px;
+            color: var(--sidebar-bg);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 24px;
+            background-color: var(--primary-color);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .cv-section {
+            margin-bottom: 35px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .date {
+            font-style: italic;
+            color: #666;
+        }
+
+        .role {
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        ul.job-tasks {
+            padding-left: 20px;
+        }
+
+        ul.job-tasks li {
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        ul.job-tasks li:hover {
+            color: var(--primary-color);
+        }
+
+        /* Right Column (Sidebar) */
+        .sidebar {
+            width: 35%;
+            background-color: var(--sidebar-bg);
+            color: var(--text-light);
+            padding: 40px 30px;
+        }
+
+        .profile-image-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--text-light);
+            object-fit: cover;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.08);
+            border-color: var(--primary-color);
+        }
+
+        .sidebar .section-header {
+            color: var(--text-light);
+            border-bottom-color: #555;
+        }
+
+        .sidebar .section-header::before {
+            background-color: var(--text-light);
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 40px;
+        }
+
+        .contact-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-icon {
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        /* WhatsApp Interactive Link */
+        .whatsapp-link {
+            color: var(--text-light);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-link:hover {
+            background-color: #25D366; /* WhatsApp Green */
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
+        }
+
+        .sidebar-item {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cv-wrapper {
+                flex-direction: column;
+            }
+            .main-content, .sidebar {
+                width: 100%;
+            }
+            .sidebar {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cv-wrapper">
+        
+        <!-- Left Column: Main Content -->
+        <div class="main-content">
+            <div class="header-box">
+                <h1>MOHAMMAD FAYEZ</h1>
+                <h2 class="subtitle">Mathematics Teacher</h2>
+            </div>
+
+            <div class="cv-section">
+                <h3 class="section-header">Profile</h3>
+                <p>Experienced Mathematics Teacher with 10+ years of teaching Algebra, Geometry, and Calculus. Skilled in curriculum design, digital learning tools, and student assessment. Passionate about helping students build strong math foundations.</p>
+            </div>
+
+            <div class="cv-section">
+                <h3 class="section-header">Teaching Experience</h3>
+                
+                <div class="job">
+                    <div class="job-header">
+                        <span class="company">Horizon international schools</span>
+                        <span class="date">2025 - Present</span>
+                    </div>
+                    <div class="role">Mathematics Teacher</div>
+                    <ul class="job-tasks">
+                        <li>Taught Algebra and Geometry to grades 7-9.</li>
+                        <li>Improved overall student performance by 25% through innovative teaching strategies.</li>
+                        <li>Designed lesson plans that integrated real-life applications of mathematics.</li>
+                        <li>Mentored junior teachers and organized math competitions.</li>
+                    </ul>
+                </div>
+
+                <br>
+
+                <div class="job">
+                    <div class="job-header">
+                        <span class="company">Itqan al-tarbiah schools</span>
+                        <span class="date">2021 - 2024</span>
+                    </div>
+                    <div class="role">Mathematics Teacher</div>
+                    <ul class="job-tasks">
+                        <li>Taught Algebra, Geometry, and Calculus to grades 9-11.</li>
+                        <li>Improved overall student performance by 25% through innovative teaching strategies.</li>
+                        <li>Designed lesson plans that integrated real-life applications of mathematics.</li>
+                        <li>Mentored junior teachers and organized math competitions.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3 class="section-header">Certifications</h3>
+                <ul class="job-tasks">
+                    <li>Ai course for teachers from Edulixa 360 (3-levels)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Column: Sidebar -->
+        <div class="sidebar">
+            <div class="profile-image-container">
+                <!-- Using raw github content link so the image renders properly -->
+                <img src="https://raw.githubusercontent.com/meromarawan31-cloud/CV/main/MR%20FAYEZ.jpeg" alt="Mohammad Fayez" class="profile-image">
+            </div>
+
+            <div class="cv-section">
+                <h3 class="section-header">Contact</h3>
+                <ul class="contact-list">
+                    <li>
+                        <!-- Interactive WhatsApp Link -->
+                        <a href="https://wa.me/966590630951" target="_blank" class="whatsapp-link" title="Click to chat on WhatsApp">
+                            📞 +966590630951
+                        </a>
+                    </li>
+                    <li>
+                        <span style="word-break: break-all;">✉️ Meromarawan31@gmail.com</span>
+                    </li>
+                    <li>
+                        📍 Qurtubah district-Riyadh city
+                    </li>
+                </ul>
+            </div>
+
+            <div class="cv-section">
+                <h3 class="section-header">Languages</h3>
+                <div class="sidebar-item">
+                    English
+                    <div style="background: #444; height: 6px; border-radius: 3px; margin-top: 5px; width: 100%;">
+                        <div style="background: #fff; height: 100%; border-radius: 3px; width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3 class="section-header">Education</h3>
+                <div class="sidebar-item">
+                    <div class="sidebar-item-title">Bachelor of science in Math and statistics</div>
+                    <div>Zagazig University 2012</div>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3 class="section-header">References</h3>
+                <div class="sidebar-item">
+                    <div class="sidebar-item-title">General Diploma in Education- Mathematics Department</div>
+                    <div>Zagazig University 2020</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
